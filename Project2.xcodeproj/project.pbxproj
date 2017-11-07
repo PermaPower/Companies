@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630234F81FB16F5A00EDC261 /* UIColor-theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630234F71FB16F5A00EDC261 /* UIColor-theme.swift */; };
 		63A9021B1F9F0404009AC6F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */; };
 		63A9021D1F9F0404009AC6F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A9021C1F9F0404009AC6F9 /* ViewController.swift */; };
 		63A902201F9F0404009AC6F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63A9021E1F9F0404009AC6F9 /* Main.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		630234F71FB16F5A00EDC261 /* UIColor-theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-theme.swift"; sourceTree = "<group>"; };
 		63A902171F9F0404009AC6F9 /* Project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63A9021C1F9F0404009AC6F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */,
 				63A9021C1F9F0404009AC6F9 /* ViewController.swift */,
+				630234F71FB16F5A00EDC261 /* UIColor-theme.swift */,
 				63A9021E1F9F0404009AC6F9 /* Main.storyboard */,
 				63A902211F9F0404009AC6F9 /* Assets.xcassets */,
 				63A902231F9F0404009AC6F9 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			files = (
 				63A9021D1F9F0404009AC6F9 /* ViewController.swift in Sources */,
 				63A9021B1F9F0404009AC6F9 /* AppDelegate.swift in Sources */,
+				630234F81FB16F5A00EDC261 /* UIColor-theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +281,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TS49475533;
 				INFOPLIST_FILE = Project2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PermaculturePower.Project2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -292,6 +297,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TS49475533;
 				INFOPLIST_FILE = Project2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PermaculturePower.Project2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
