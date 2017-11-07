@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		630234F81FB16F5A00EDC261 /* UIColor-theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630234F71FB16F5A00EDC261 /* UIColor-theme.swift */; };
+		635D41AC1FB2640A00B58231 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 635D41AB1FB2640A00B58231 /* Default-568h@2x.png */; };
 		63A9021B1F9F0404009AC6F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */; };
 		63A9021D1F9F0404009AC6F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A9021C1F9F0404009AC6F9 /* ViewController.swift */; };
 		63A902201F9F0404009AC6F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63A9021E1F9F0404009AC6F9 /* Main.storyboard */; };
@@ -17,7 +18,8 @@
 
 /* Begin PBXFileReference section */
 		630234F71FB16F5A00EDC261 /* UIColor-theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-theme.swift"; sourceTree = "<group>"; };
-		63A902171F9F0404009AC6F9 /* Project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		635D41AB1FB2640A00B58231 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		63A902171F9F0404009AC6F9 /* Companies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Companies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63A9021C1F9F0404009AC6F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		63A9021F1F9F0404009AC6F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,7 +42,8 @@
 		63A9020E1F9F0404009AC6F9 = {
 			isa = PBXGroup;
 			children = (
-				63A902191F9F0404009AC6F9 /* Project2 */,
+				635D41AB1FB2640A00B58231 /* Default-568h@2x.png */,
+				63A902191F9F0404009AC6F9 /* Companies */,
 				63A902181F9F0404009AC6F9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,12 +51,12 @@
 		63A902181F9F0404009AC6F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63A902171F9F0404009AC6F9 /* Project2.app */,
+				63A902171F9F0404009AC6F9 /* Companies.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		63A902191F9F0404009AC6F9 /* Project2 */ = {
+		63A902191F9F0404009AC6F9 /* Companies */ = {
 			isa = PBXGroup;
 			children = (
 				63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */,
@@ -64,15 +67,15 @@
 				63A902231F9F0404009AC6F9 /* LaunchScreen.storyboard */,
 				63A902261F9F0404009AC6F9 /* Info.plist */,
 			);
-			path = Project2;
+			path = Companies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		63A902161F9F0404009AC6F9 /* Project2 */ = {
+		63A902161F9F0404009AC6F9 /* Companies */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 63A902291F9F0404009AC6F9 /* Build configuration list for PBXNativeTarget "Project2" */;
+			buildConfigurationList = 63A902291F9F0404009AC6F9 /* Build configuration list for PBXNativeTarget "Companies" */;
 			buildPhases = (
 				63A902131F9F0404009AC6F9 /* Sources */,
 				63A902141F9F0404009AC6F9 /* Frameworks */,
@@ -82,9 +85,9 @@
 			);
 			dependencies = (
 			);
-			name = Project2;
+			name = Companies;
 			productName = Project2;
-			productReference = 63A902171F9F0404009AC6F9 /* Project2.app */;
+			productReference = 63A902171F9F0404009AC6F9 /* Companies.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -103,7 +106,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 63A902121F9F0404009AC6F9 /* Build configuration list for PBXProject "Project2" */;
+			buildConfigurationList = 63A902121F9F0404009AC6F9 /* Build configuration list for PBXProject "Companies" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,7 +119,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				63A902161F9F0404009AC6F9 /* Project2 */,
+				63A902161F9F0404009AC6F9 /* Companies */,
 			);
 		};
 /* End PBXProject section */
@@ -127,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63A902251F9F0404009AC6F9 /* LaunchScreen.storyboard in Resources */,
+				635D41AC1FB2640A00B58231 /* Default-568h@2x.png in Resources */,
 				63A902221F9F0404009AC6F9 /* Assets.xcassets in Resources */,
 				63A902201F9F0404009AC6F9 /* Main.storyboard in Resources */,
 			);
@@ -280,10 +284,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TS49475533;
-				INFOPLIST_FILE = Project2/Info.plist;
+				INFOPLIST_FILE = Companies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PermaculturePower.Project2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PermaculturePower.Companies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -296,10 +300,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TS49475533;
-				INFOPLIST_FILE = Project2/Info.plist;
+				INFOPLIST_FILE = Companies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PermaculturePower.Project2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PermaculturePower.Companies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -309,7 +313,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		63A902121F9F0404009AC6F9 /* Build configuration list for PBXProject "Project2" */ = {
+		63A902121F9F0404009AC6F9 /* Build configuration list for PBXProject "Companies" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63A902271F9F0404009AC6F9 /* Debug */,
@@ -318,7 +322,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		63A902291F9F0404009AC6F9 /* Build configuration list for PBXNativeTarget "Project2" */ = {
+		63A902291F9F0404009AC6F9 /* Build configuration list for PBXNativeTarget "Companies" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63A9022A1F9F0404009AC6F9 /* Debug */,
