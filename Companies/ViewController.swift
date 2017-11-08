@@ -13,6 +13,11 @@ class ViewController: UITableViewController {
     var navTitle = "Companies"
     let cellID = "CellID"
     
+    let companies = [
+        Company(name: "Apple", founded: Date()),
+        Company(name: "Google", founded: Date())
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +52,7 @@ class ViewController: UITableViewController {
     // MARK: Sections
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return companies.count
     }
     
     // MARK: Header Section
@@ -67,7 +72,7 @@ class ViewController: UITableViewController {
         cell.backgroundColor = Color.teal.value
         cell.textLabel?.textColor = Color.white.value
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        cell.textLabel?.text = "The company name"
+        cell.textLabel?.text = companies[indexPath.row].name
         return cell
     }
     
