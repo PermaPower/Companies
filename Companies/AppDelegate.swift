@@ -24,6 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Setup Navigation Style across the whole app
+        if #available(iOS 11.0, *) {
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.white.value]
+            UINavigationBar.appearance().prefersLargeTitles = true
+        }
+        
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = Color.red.value
+        UINavigationBar.appearance().tintColor = Color.white.value
+        
+        // Setup default view
         window = UIWindow()
         window?.makeKeyAndVisible()
         
@@ -31,16 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navController = CustomWhiteNavigationController(rootViewController: companiesViewController)
         window?.rootViewController = navController
-        
-        // Setup Navigation Style across the whole app
-        UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = Color.red.value
-        UINavigationBar.appearance().tintColor = Color.white.value
-        
-        if #available(iOS 11.0, *) {
-            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.white.value]
-            UINavigationBar.appearance().prefersLargeTitles = true
-        }
         
         return true
     }
