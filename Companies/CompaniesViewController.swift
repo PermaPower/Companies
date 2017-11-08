@@ -10,10 +10,10 @@ import UIKit
 
 class CompaniesViewController: UITableViewController {
     
-    private var navTitle = "Companies"
+    private let navTitle = "Companies"
     private let cellID = "CellID"
     
-    let companies = [
+    private let companies = [
         Company(name: "Apple", founded: Date()),
         Company(name: "Google", founded: Date())
     ]
@@ -29,7 +29,7 @@ class CompaniesViewController: UITableViewController {
         navigationItem.title = navTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(handleAddCompany))
         
-        tableView.backgroundColor = Color.background.value
+        tableView.backgroundColor = Color.darkBlue.value
         tableView.separatorStyle = .none
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         
@@ -78,11 +78,10 @@ class CompaniesViewController: UITableViewController {
         
     }
     
+    // Add Company Button Action
     @objc private func handleAddCompany(){
-        print("Adding company")
-        
+       
         let createCompanyController = CreateCompanyViewController()
-        //createCompanyController.view.backgroundColor = .green
         
         let navController = CustomWhiteNavigationController(rootViewController: createCompanyController)
         

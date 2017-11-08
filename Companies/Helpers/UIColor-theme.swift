@@ -17,7 +17,7 @@ import UIKit
 enum Color {
     
     case red
-    case background
+    case darkBlue
     case white
     case teal
     case lightblue
@@ -40,7 +40,7 @@ extension Color {
             instanceColor = UIColor(hexString: "#F74252")
         case .white:
             instanceColor = UIColor(hexString: "#FFFFFF")
-        case .background:
+        case .darkBlue:
             instanceColor = UIColor(hexString: "#092D40")
         case .teal:
             instanceColor = UIColor(hexString: "#30A4B6")

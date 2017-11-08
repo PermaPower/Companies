@@ -8,20 +8,40 @@
 
 import UIKit
 
-private var navTitle = "Create Company"
+private let navTitle = "Create Company"
+private let cancelButtonTitle = "Cancel"
 
 class CreateCompanyViewController: UIViewController {
+    
+    // MARK: NameLabel
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Name"
+        label.backgroundColor = .red
+        return label
+    }()
     
     override func viewDidLoad() {
         
         navigationItem.title = navTitle
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancelButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: cancelButtonTitle, style: .plain, target: self, action: #selector(handleCancelButton))
         
-        view.backgroundColor = .yellow
+        view.backgroundColor = Color.darkBlue.value
+        
+        setupUI()
                
     }
     
+    private func setupUI() {
+        
+        view.addSubview(nameLabel)
+        
+        nameLabel.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        
+    }
+    
+    // MARK: Cancel Button Action
     @objc func handleCancelButton() {
         dismiss(animated: true, completion: nil)
     }
