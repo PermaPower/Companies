@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class CompaniesViewController: UITableViewController {
     
-    var navTitle = "Companies"
-    let cellID = "CellID"
+    private var navTitle = "Companies"
+    private let cellID = "CellID"
     
     let companies = [
         Company(name: "Apple", founded: Date()),
@@ -21,32 +21,18 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationStyle()
-        setupTableViewCells()
-    }
-
-    func setupTableViewCells() {
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        setupTableView()
     }
     
-    func setupNavigationStyle() {
-       
-        tableView.backgroundColor = Color.background.value
-        tableView.separatorStyle = .none
+    private func setupTableView() {
         
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = Color.red.value
+        navigationItem.title = navTitle
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(handleAddCompany))
         
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.white.value]
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationItem.title = navTitle
-        } else {
-            // Fallback on earlier versions
-            navigationItem.title = navTitle
-        }
+        tableView.backgroundColor = Color.background.value
+        tableView.separatorStyle = .none
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        
     }
     
     // MARK: Sections
@@ -68,23 +54,38 @@ class ViewController: UITableViewController {
     
     // MARK: CellForRow
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        
         cell.backgroundColor = Color.teal.value
         cell.textLabel?.textColor = Color.white.value
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        cell.textLabel?.text = companies[indexPath.row].name
+        
+        let company = companies[indexPath.row]
+        cell.textLabel?.text = company.name
+        
         return cell
     }
     
     // Change the navigationItem.title color to white for all non iOS 11
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         let nav = self.navigationController?.navigationBar
+        
         nav?.tintColor = Color.white.value
         nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.white.value]
+        
     }
     
-    @objc func handleAddCompany(){
+    @objc private func handleAddCompany(){
         print("Adding company")
+        
+        let createCompanyController = CreateCompanyViewController()
+        //createCompanyController.view.backgroundColor = .green
+        
+        let navController = CustomWhiteNavigationController(rootViewController: createCompanyController)
+        
+        present(navController, animated: true, completion: nil)
     }
 }

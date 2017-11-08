@@ -27,10 +27,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         
-        let companiesViewController = ViewController()
+        let companiesViewController = CompaniesViewController()
         
         let navController = CustomWhiteNavigationController(rootViewController: companiesViewController)
         window?.rootViewController = navController
+        
+        // Setup Navigation Style across the whole app
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = Color.red.value
+        UINavigationBar.appearance().tintColor = Color.white.value
+        
+        if #available(iOS 11.0, *) {
+            UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: Color.white.value]
+            UINavigationBar.appearance().prefersLargeTitles = true
+        }
         
         return true
     }
