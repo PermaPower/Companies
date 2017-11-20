@@ -17,11 +17,13 @@ class CreateCompanyViewController: UIViewController {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
-        label.backgroundColor = .red
+        label.textColor = Color.white.value
+        label.backgroundColor = Color.teal.value
         return label
     }()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         navigationItem.title = navTitle
         

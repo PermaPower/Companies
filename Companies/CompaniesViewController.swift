@@ -15,7 +15,8 @@ class CompaniesViewController: UITableViewController {
     
     private let companies = [
         Company(name: "Apple", founded: Date()),
-        Company(name: "Google", founded: Date())
+        Company(name: "Google", founded: Date()),
+        Company(name: "Facebook", founded: Date())
     ]
     
     override func viewDidLoad() {
