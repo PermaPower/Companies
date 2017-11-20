@@ -21,6 +21,7 @@ enum Color {
     case white
     case teal
     case lightblue
+    case black
     
     case custom(hexString: String, alpha: Double)
     
@@ -46,6 +47,8 @@ extension Color {
             instanceColor = UIColor(hexString: "#30A4B6")
         case .lightblue:
             instanceColor = UIColor(hexString: "#DAEBF3")
+        case .black:
+            instanceColor = UIColor(hexString: "#000000")
             
         case .custom(let hexValue, let opacity):
             instanceColor = UIColor(hexString: hexValue).withAlphaComponent(CGFloat(opacity))
