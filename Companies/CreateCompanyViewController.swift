@@ -14,8 +14,10 @@ private let navTitle = "Create Company"
 private let cancelButtonTitle = "Cancel"
 private let saveButtonTitle = "Save"
 
-// MARK: Custom Delegation (safer as not tightly coupled to CompaniesViewController)
+// MARK: Custom Delegation
 protocol CreateCompanyViewControllerCustomDelegate {
+    
+    // Function will run when custom delegate is called
     func didAddCompany(company: Company)
 }
 
@@ -106,6 +108,7 @@ class CreateCompanyViewController: UIViewController {
             
             let company = Company(name: name, founded: Date())
             
+            // Call delegate function
             self.delegate?.didAddCompany(company: company)
         }
     }

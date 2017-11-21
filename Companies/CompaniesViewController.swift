@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CompaniesViewController.swift
 //  Project2
 //
 //  Created by David on 24/10/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompaniesViewController: UITableViewController, CreateCompanyViewControllerCustomDelegate {
+class CompaniesViewController: UITableViewController  {
     
     private let navTitle = "Companies"
     private let cellID = "CellID"
@@ -18,15 +18,6 @@ class CompaniesViewController: UITableViewController, CreateCompanyViewControlle
         Company(name: "Google", founded: Date()),
         Company(name: "Facebook", founded: Date())
     ]
-    
-    func didAddCompany(company: Company) {
-        // Modify array
-        companies.append(company)
-        
-        // Insert new index path into tableView
-        let newIndexPath = IndexPath(row: companies.count-1, section: 0)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,4 +89,19 @@ class CompaniesViewController: UITableViewController, CreateCompanyViewControlle
         
         present(navController, animated: true, completion: nil)
     }
+}
+
+// MARK: CreateCompanyViewControllerCustomDelegate
+extension CompaniesViewController: CreateCompanyViewControllerCustomDelegate {
+    
+    func didAddCompany(company: Company) {
+        
+        // Modify array
+        companies.append(company)
+        
+        // Insert new index path into tableView
+        let newIndexPath = IndexPath(row: companies.count-1, section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
 }
