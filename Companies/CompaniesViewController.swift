@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompaniesViewController: UITableViewController, CreateCompanyViewControllerDelegate {
+class CompaniesViewController: UITableViewController, CreateCompanyViewControllerCustomDelegate {
     
     private let navTitle = "Companies"
     private let cellID = "CellID"
