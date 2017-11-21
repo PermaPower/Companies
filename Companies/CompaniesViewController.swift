@@ -8,16 +8,25 @@
 
 import UIKit
 
-class CompaniesViewController: UITableViewController {
+class CompaniesViewController: UITableViewController, CreateCompanyViewControllerDelegate {
     
     private let navTitle = "Companies"
     private let cellID = "CellID"
     
-    private let companies = [
+    private var companies = [
         Company(name: "Apple", founded: Date()),
         Company(name: "Google", founded: Date()),
         Company(name: "Facebook", founded: Date())
     ]
+    
+    func didAddCompany(company: Company) {
+        // Modify array
+        companies.append(company)
+        
+        // Insert new index path into tableView
+        let newIndexPath = IndexPath(row: companies.count-1, section: 0)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +46,6 @@ class CompaniesViewController: UITableViewController {
     }
     
     // MARK: Sections
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return companies.count
     }
@@ -85,6 +93,8 @@ class CompaniesViewController: UITableViewController {
         let createCompanyController = CreateCompanyViewController()
         
         let navController = CustomWhiteNavigationController(rootViewController: createCompanyController)
+        
+        createCompanyController.delegate = self
         
         present(navController, animated: true, completion: nil)
     }
