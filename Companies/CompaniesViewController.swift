@@ -7,23 +7,52 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesViewController: UITableViewController  {
     
     private let navTitle = "Companies"
     private let cellID = "CellID"
     
-    private var companies = [
-        Company(name: "Apple", founded: Date()),
-        Company(name: "Google", founded: Date()),
-        Company(name: "Facebook", founded: Date())
-    ]
+    // Empty Array
+    private var companies = [Company]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchCompanies()
+        
         setupTableView()
     }
+    
+    private func fetchCompanies() {
+        // Attempt to read Core Data Fetch somehow...
+        // Initialization of our Core Data stack
+        
+        let persistentContainer = NSPersistentContainer(name: "CoreDataModel")
+        persistentContainer.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error {
+                fatalError("Loading of store failed: \(error)")
+            }
+        })
+        
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            let companies = try context.fetch(fetchRequest)
+            
+            companies.forEach({(company) in
+                print(company.name ?? "")
+            })
+        } catch let fetchErr {
+            print("Failed to fetch companeis:", fetchErr)
+        }
+        
+        
+    }
+    
     
     private func setupTableView() {
         
@@ -94,6 +123,7 @@ class CompaniesViewController: UITableViewController  {
 // MARK: CreateCompanyViewControllerCustomDelegate
 extension CompaniesViewController: CreateCompanyViewControllerCustomDelegate {
     
+    // Only called when delege is called
     func didAddCompany(company: Company) {
         
         // Modify array

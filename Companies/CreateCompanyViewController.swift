@@ -6,9 +6,10 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1862 @ x seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1862 @ x 7:35 seconds
 
 import UIKit
+import CoreData
 
 private let navTitle = "Create Company"
 private let cancelButtonTitle = "Cancel"
@@ -103,13 +104,38 @@ class CreateCompanyViewController: UIViewController {
         // Setup dismiss model popup view with animation.  It is in closure so that animation happens after window is closed
         dismiss(animated: true) {
             
+            // Initialization of our Core Data stack
+            
+            let persistentContainer = NSPersistentContainer(name: "CoreDataModel")
+            persistentContainer.loadPersistentStores(completionHandler: { (storeDescription, error) in
+                if let error = error {
+                    fatalError("Loading of store failed: \(error)")
+                }
+            })
+            
+            let context = persistentContainer.viewContext
+            
+            let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+            
+            company.setValue(self.nameTextField.text, forKey: "name")
+            
+            // Performce the Core Data save
+            do {
+                 try context.save()
+            } catch let saveErr {
+                print ("Failed to save company: ",saveErr)
+            }
+            
+           
+            
+            
             // Read textfiled name (non-blank)
-            guard let name = self.nameTextField.text else {return}
-            
-            let company = Company(name: name, founded: Date())
-            
-            // Call delegate function
-            self.delegate?.didAddCompany(company: company)
+//            guard let name = self.nameTextField.text else {return}
+//
+//            let company = Company(name: name, founded: Date())
+//
+//            // Call delegate function
+//            self.delegate?.didAddCompany(company: company)
         }
     }
 }
