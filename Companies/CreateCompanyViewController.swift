@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1872 @ x 12:42 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1902 @ x seconds
 
 import UIKit
 import CoreData
@@ -100,6 +100,12 @@ class CreateCompanyViewController: UIViewController {
     
     // MARK: Save Button Action
     @objc private func handleSaveButton() {
+        
+        // Test to see if name is blank.  If it is then exit function before any data is saved to Coredata
+        guard !(nameTextField.text?.isEmpty)! else {
+            print ("No name to submit")
+            return
+        }
         
         // initialization of our Core Data stack
         
