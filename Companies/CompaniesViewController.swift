@@ -17,6 +17,14 @@ class CompaniesViewController: UITableViewController  {
     // Empty Array
     private var companies = [Company]()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        fetchCompanies()
+        
+        setupTableView()
+    }
+
     private func fetchCompanies() {
         // Attempt to read Core Data Fetch somehow...
         // Initialization of our Core Data stack
@@ -38,20 +46,7 @@ class CompaniesViewController: UITableViewController  {
         } catch let fetchErr {
             print("Failed to fetch companeis:", fetchErr)
         }
-        
-        
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        fetchCompanies()
-        
-        setupTableView()
-    }
-    
-    
     
     private func setupTableView() {
         
@@ -61,7 +56,6 @@ class CompaniesViewController: UITableViewController  {
         tableView.backgroundColor = Color.darkBlue.value
         tableView.separatorStyle = .none
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        
     }
     
     // MARK: Sections
@@ -93,6 +87,15 @@ class CompaniesViewController: UITableViewController  {
         cell.textLabel?.text = company.name
         
         return cell
+    }
+    
+    // Add edit actions to tableView rows
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+            let company = self.companies[indexPath.row]
+            print ("Attempting to delete company: ", company.name ?? "")
+        }
+        return [deleteAction]
     }
     
     // Change the navigationItem.title color to white for all non iOS 11
