@@ -17,6 +17,32 @@ class CompaniesViewController: UITableViewController  {
     // Empty Array
     private var companies = [Company]()
     
+    private func fetchCompanies() {
+        // Attempt to read Core Data Fetch somehow...
+        // Initialization of our Core Data stack
+        
+        // Singleton
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            let companies = try context.fetch(fetchRequest)
+            
+            // Load array with Companies in Core Data
+            self.companies = companies
+            
+            // Reload the tableView with array
+            self.tableView.reloadData()
+            
+        } catch let fetchErr {
+            print("Failed to fetch companeis:", fetchErr)
+        }
+        
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,33 +51,6 @@ class CompaniesViewController: UITableViewController  {
         setupTableView()
     }
     
-    private func fetchCompanies() {
-        // Attempt to read Core Data Fetch somehow...
-        // Initialization of our Core Data stack
-        
-        let persistentContainer = NSPersistentContainer(name: "CoreDataModel")
-        persistentContainer.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error {
-                fatalError("Loading of store failed: \(error)")
-            }
-        })
-        
-        let context = persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
-        
-        do {
-            let companies = try context.fetch(fetchRequest)
-            
-            companies.forEach({(company) in
-                print(company.name ?? "")
-            })
-        } catch let fetchErr {
-            print("Failed to fetch companeis:", fetchErr)
-        }
-        
-        
-    }
     
     
     private func setupTableView() {
