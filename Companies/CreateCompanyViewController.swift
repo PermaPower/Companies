@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1902 @ x 6:16 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1892 @ x seconds
 
 import UIKit
 import CoreData

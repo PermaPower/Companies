@@ -89,10 +89,19 @@ class CompaniesViewController: UITableViewController  {
         return cell
     }
     
-    // Add edit and delete actions to tableView rows
+    // Add edit and delete actions to tableView rows. Action is handled by handlerFunction
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: deleteHandlerFunction)
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
+        
+        return [editAction, deleteAction]
+    }
+    
+    // Private function to handle delete action handler
+    private func deleteHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath){
+        
+        //let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
             let company = self.companies[indexPath.row]
             print ("Attempting to delete company: ", company.name ?? "")
             
@@ -108,12 +117,14 @@ class CompaniesViewController: UITableViewController  {
             } catch let saveErr {
                 print("Failed to delte company:", saveErr)
             }
-        }
+        //}
+    }
+    
+    // Private function to handle edit action handler
+    private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
+        print ("Editing company. (SEP)..")
         
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (_, indexPath) in
-            print ("Editing company...")
-        }
-        return [editAction, deleteAction]
+        return
     }
     
     // Change the navigationItem.title color to white for all non iOS 11
