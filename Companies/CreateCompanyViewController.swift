@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1892 @ x 11:09 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2102 @ x  seconds
 
 import UIKit
 import CoreData
@@ -135,9 +135,8 @@ class CreateCompanyViewController: UIViewController {
         // initialization of our Core Data stack
         
         let context = CoreDataManager.shared.persistentContainer.viewContext
-        
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
-        
+    
         company.setValue(nameTextField.text, forKey: "name")
         
         // perform the save

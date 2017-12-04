@@ -93,7 +93,10 @@ class CompaniesViewController: UITableViewController  {
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: deleteHandlerFunction)
+        deleteAction.backgroundColor = Color.red.value
+        
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: editHandlerFunction)
+        editAction.backgroundColor = Color.darkBlue.value
         
         return [editAction, deleteAction]
     }
@@ -101,7 +104,6 @@ class CompaniesViewController: UITableViewController  {
     // Private function to handle delete action handler
     private func deleteHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath){
         
-        //let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
             let company = self.companies[indexPath.row]
             print ("Attempting to delete company: ", company.name ?? "")
             
@@ -117,12 +119,11 @@ class CompaniesViewController: UITableViewController  {
             } catch let saveErr {
                 print("Failed to delte company:", saveErr)
             }
-        //}
     }
+    
     
     // Private function to handle edit action handler
     private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
-        print ("Editing company. (SEP)..")
         
         // Model view
         let editCompanyController = CreateCompanyViewController()
