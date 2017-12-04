@@ -124,7 +124,12 @@ class CompaniesViewController: UITableViewController  {
     private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
         print ("Editing company. (SEP)..")
         
-        return
+        // Model view
+        let editCompanyController = CreateCompanyViewController()
+        editCompanyController.companyNameForRowSelected = companies[indexPath.row]
+        let navController = CustomWhiteNavigationController(rootViewController: editCompanyController)
+        present(navController, animated: true, completion: nil)
+      
     }
     
     // Change the navigationItem.title color to white for all non iOS 11

@@ -6,12 +6,11 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1892 @ x seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1892 @ x 8:15 seconds
 
 import UIKit
 import CoreData
 
-private let navTitle = "Create Company"
 private let cancelButtonTitle = "Cancel"
 private let saveButtonTitle = "Save"
 
@@ -23,6 +22,9 @@ protocol CreateCompanyViewControllerCustomDelegate {
 }
 
 class CreateCompanyViewController: UIViewController {
+    
+    // Add companyNameForRowSelected property to class (used in modal)
+    var companyNameForRowSelected: Company?
     
     // Instantiate a link between controllers
     var delegate: CreateCompanyViewControllerCustomDelegate?
@@ -63,7 +65,6 @@ class CreateCompanyViewController: UIViewController {
     private func setupUI() {
         
         // Setup navigation bar title and buttons
-        navigationItem.title = navTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: cancelButtonTitle, style: .plain, target: self, action: #selector(handleCancelButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: saveButtonTitle, style: .plain, target: self, action: #selector(handleSaveButton))
         
@@ -90,6 +91,15 @@ class CreateCompanyViewController: UIViewController {
         nameTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
+        
+    }
+    
+    // Update header just before viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Ternary Syntax
+        navigationItem.title = companyNameForRowSelected == nil ? "Create Company" : "Edit Company"
         
     }
     
