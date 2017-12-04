@@ -126,12 +126,13 @@ class CompaniesViewController: UITableViewController  {
         
         // Model view
         let editCompanyController = CreateCompanyViewController()
+        editCompanyController.delegate = self
         editCompanyController.companyNameForRowSelected = companies[indexPath.row]
         let navController = CustomWhiteNavigationController(rootViewController: editCompanyController)
         present(navController, animated: true, completion: nil)
       
     }
-    
+       
     // Change the navigationItem.title color to white for all non iOS 11
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -168,6 +169,16 @@ extension CompaniesViewController: CreateCompanyViewControllerCustomDelegate {
         // Insert new index path into tableView
         let newIndexPath = IndexPath(row: companies.count-1, section: 0)
         tableView.insertRows(at: [newIndexPath], with: .automatic)
+    }
+    
+    // Update tableview after edit
+    func didEditCompany(company: Company) {
+        
+        let row = companies.index(of: company)
+        
+        let reloadIndexPath = IndexPath(row: row!, section: 0)
+        tableView.reloadRows(at: [reloadIndexPath], with: .middle)
+        
     }
     
 }

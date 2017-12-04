@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1892 @ x 8:15 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1892 @ x 11:09 seconds
 
 import UIKit
 import CoreData
@@ -19,12 +19,17 @@ protocol CreateCompanyViewControllerCustomDelegate {
     
     // Function will run when custom delegate is called
     func didAddCompany(company: Company)
+    func didEditCompany(company: Company)
 }
 
 class CreateCompanyViewController: UIViewController {
     
     // Add companyNameForRowSelected property to class (used in modal)
-    var companyNameForRowSelected: Company?
+    var companyNameForRowSelected: Company? {
+        didSet {
+            nameTextField.text = companyNameForRowSelected?.name
+        }
+    }
     
     // Instantiate a link between controllers
     var delegate: CreateCompanyViewControllerCustomDelegate?
@@ -111,6 +116,16 @@ class CreateCompanyViewController: UIViewController {
     // MARK: Save Button Action
     @objc private func handleSaveButton() {
         
+        if companyNameForRowSelected == nil {
+            createCompany()
+        } else
+        {
+            saveCompanyChanges()
+        }
+    }
+    
+    // Save to coredata Company
+    private func createCompany () {
         // Test to see if name is blank.  If it is then exit function before any data is saved to Coredata
         guard !(nameTextField.text?.isEmpty)! else {
             print ("No name to submit")
@@ -138,4 +153,27 @@ class CreateCompanyViewController: UIViewController {
             print("Failed to save company:", saveErr)
         }
     }
+    
+    // Save company changes
+    private func saveCompanyChanges() {
+        
+        // Coredata update
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        companyNameForRowSelected?.name = nameTextField.text
+        
+        do {
+            try context.save()
+
+            // Dimisss modal
+            dismiss(animated: true, completion: {
+                self.delegate?.didEditCompany(company: self.companyNameForRowSelected!)
+            })
+            
+        } catch let saveErr {
+            print("Error when trying to save updates to CoreData: ", saveErr)
+        }
+
+    }
+
 }
