@@ -15,6 +15,13 @@ class CustomWhiteNavigationController: UINavigationController {
     }
 }
 
+// Extension to color titlebar on UIImagePicker modal
+extension UINavigationController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
