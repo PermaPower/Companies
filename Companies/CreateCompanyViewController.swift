@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2102 @ x 13:26 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1992 @ x  seconds
 
 import UIKit
 import CoreData
@@ -71,6 +71,17 @@ class CreateCompanyViewController: UIViewController {
         return dp
     }()
     
+    
+    // Founded name Label
+    private let foundedNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Founded"
+        label.textColor = Color.black.value
+        // Enable Autolayout
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +98,7 @@ class CreateCompanyViewController: UIViewController {
         // Setup background color for view
         view.backgroundColor = Color.darkBlue.value
         
-        // Setup background lightblue background with Autolayout enabled
+        // Setup background lightblue background with Autolayout enabled (Currently set with a 250 height)
         view.addSubview(lightBlueBackgroundView)
         lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -108,12 +119,19 @@ class CreateCompanyViewController: UIViewController {
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         
+        // Add founded nameLabel
+        view.addSubview(foundedNameLabel)
+        foundedNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        foundedNameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        foundedNameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        foundedNameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         // Add datePicker
         view.addSubview(datePicker)
         datePicker.leftAnchor.constraint(equalTo: nameLabel.rightAnchor).isActive = true
         datePicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
+        datePicker.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
     }
     
