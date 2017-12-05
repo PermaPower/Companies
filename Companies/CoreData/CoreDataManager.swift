@@ -25,7 +25,4 @@ struct CoreDataManager {
         
         return containter
     }()
-    
-    
-    
 }

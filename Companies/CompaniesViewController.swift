@@ -84,8 +84,18 @@ class CompaniesViewController: UITableViewController  {
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         let company = companies[indexPath.row]
-        cell.textLabel?.text = company.name
         
+        if let name = company.name, let founded = company.founded {
+            
+            // Set English Locale
+            let locale = Locale(identifier: "EN")
+            
+            let dateString = "\(name) - Founded: \(founded.description(with: locale))"
+            cell.textLabel?.text = dateString
+        } else {
+            cell.textLabel?.text = company.name
+        }
+
         return cell
     }
     
@@ -101,7 +111,7 @@ class CompaniesViewController: UITableViewController  {
         return [editAction, deleteAction]
     }
     
-    // Private function to handle delete action handler
+    // Private function to handle Delete action handler
     private func deleteHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath){
         
             let company = self.companies[indexPath.row]
@@ -121,8 +131,7 @@ class CompaniesViewController: UITableViewController  {
             }
     }
     
-    
-    // Private function to handle edit action handler
+    // Private function to handle Edit action handler
     private func editHandlerFunction(action: UITableViewRowAction, indexPath: IndexPath) {
         
         // Model view
@@ -181,5 +190,4 @@ extension CompaniesViewController: CreateCompanyViewControllerCustomDelegate {
         tableView.reloadRows(at: [reloadIndexPath], with: .middle)
         
     }
-    
 }

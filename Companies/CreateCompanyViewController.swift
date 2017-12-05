@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2102 @ x  seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2102 @ x 13:26 seconds
 
 import UIKit
 import CoreData
@@ -34,7 +34,7 @@ class CreateCompanyViewController: UIViewController {
     // Instantiate a link between controllers
     var delegate: CreateCompanyViewControllerCustomDelegate?
     
-    // MARK: Lightblue background color
+    // Lightblue background color
     private let lightBlueBackgroundView: UIView = {
         let lbg = UIView()
         lbg.backgroundColor = Color.lightblue.value
@@ -42,7 +42,7 @@ class CreateCompanyViewController: UIViewController {
         return lbg
     }()
     
-    // MARK: NameLabel
+    // NameLabel
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
@@ -52,12 +52,20 @@ class CreateCompanyViewController: UIViewController {
         return label
     }()
     
-    // MARK: NameLabel - TextField
+    // NameLabel - TextField
     private let nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter name"
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    // DatePicker
+    private let datePicker: UIDatePicker = {
+    let dp = UIDatePicker()
+        dp.translatesAutoresizingMaskIntoConstraints = false
+        dp.datePickerMode = .date
+        return dp
     }()
     
     override func viewDidLoad() {
@@ -81,7 +89,7 @@ class CreateCompanyViewController: UIViewController {
         lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         
         // Add nameLabel
         view.addSubview(nameLabel)
@@ -97,6 +105,13 @@ class CreateCompanyViewController: UIViewController {
         nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         
+        // Add datePicker
+        view.addSubview(datePicker)
+        datePicker.leftAnchor.constraint(equalTo: nameLabel.rightAnchor).isActive = true
+        datePicker.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        
     }
     
     // Update header just before viewWillAppear
@@ -108,19 +123,19 @@ class CreateCompanyViewController: UIViewController {
         
     }
     
-    // MARK: Cancel Button Action
+    // Cancel Button Action
     @objc private func handleCancelButton() {
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: Save Button Action
+    // Save Button Action
     @objc private func handleSaveButton() {
         
         if companyNameForRowSelected == nil {
             createCompany()
         } else
         {
-            saveCompanyChanges()
+            saveCompanyEditedChanges()
         }
     }
     
@@ -138,6 +153,7 @@ class CreateCompanyViewController: UIViewController {
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
     
         company.setValue(nameTextField.text, forKey: "name")
+        company.setValue(datePicker.date, forKey: "founded")
         
         // perform the save
         do {
@@ -154,11 +170,12 @@ class CreateCompanyViewController: UIViewController {
     }
     
     // Save company changes
-    private func saveCompanyChanges() {
+    private func saveCompanyEditedChanges() {
         
-        // Coredata update
+        // Core Data
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
+        // Update variable with edited textfield
         companyNameForRowSelected?.name = nameTextField.text
         
         do {
@@ -174,5 +191,4 @@ class CreateCompanyViewController: UIViewController {
         }
 
     }
-
 }
