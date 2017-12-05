@@ -87,10 +87,16 @@ class CompaniesViewController: UITableViewController  {
         
         if let name = company.name, let founded = company.founded {
             
-            // Set English Locale
-            let locale = Locale(identifier: "EN")
+            // Date formatter
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM YYYY"
             
-            let dateString = "\(name) - Founded: \(founded.description(with: locale))"
+            let foundedDateString = dateFormatter.string(from: founded)
+            
+            // Set English Locale
+            // let locale = Locale(identifier: "EN")
+            
+            let dateString = "\(name) - Founded: \(foundedDateString)"
             cell.textLabel?.text = dateString
         } else {
             cell.textLabel?.text = company.name

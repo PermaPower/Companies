@@ -28,6 +28,9 @@ class CreateCompanyViewController: UIViewController {
     var companyNameForRowSelected: Company? {
         didSet {
             nameTextField.text = companyNameForRowSelected?.name
+            
+            guard let founded = companyNameForRowSelected?.founded else {return}
+            datePicker.date = founded
         }
     }
     
@@ -177,6 +180,9 @@ class CreateCompanyViewController: UIViewController {
         
         // Update variable with edited textfield
         companyNameForRowSelected?.name = nameTextField.text
+        
+        // Update founded date
+        companyNameForRowSelected?.founded = datePicker.date
         
         do {
             try context.save()
