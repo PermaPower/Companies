@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1992 @ x 8:38 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2122 @ x seconds
 
 import UIKit
 import CoreData
@@ -22,16 +22,34 @@ protocol CreateCompanyViewControllerCustomDelegate {
     func didEditCompany(company: Company)
 }
 
-class CreateCompanyViewController: UIViewController {
+class CreateCompanyViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // Add companyNameForRowSelected property to class (used in modal)
     var companyNameForRowSelected: Company? {
         didSet {
             nameTextField.text = companyNameForRowSelected?.name
             
+            // Set the image if CoreData has one
+            if let imageData = companyNameForRowSelected?.imageData {
+                companyImageView.image = UIImage(data: imageData)
+            }
+            
+            // Setup cirular image style
+            setupCircularImageSytle()
+           
             guard let founded = companyNameForRowSelected?.founded else {return}
             datePicker.date = founded
         }
+    }
+    
+    // Setup circluar style for images
+    private func setupCircularImageSytle() {
+        // Make image circular
+        companyImageView.layer.cornerRadius = companyImageView.frame.width / 2
+        companyImageView.clipsToBounds = true
+        companyImageView.layer.borderColor = Color.darkBlue.value.cgColor
+        companyImageView.layer.borderWidth = 1
+        
     }
     
     // Instantiate a link between controllers
@@ -49,6 +67,7 @@ class CreateCompanyViewController: UIViewController {
     private lazy var companyImageView: UIImageView = {
        let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
         // Turn image into an interractive button (need lazy var)
         imageView.isUserInteractionEnabled = true
         // Add guester recognizer
@@ -169,7 +188,30 @@ class CreateCompanyViewController: UIViewController {
         
         let imagePickerController = UIImagePickerController()
         
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        
         present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // Animate imagePickerController dismiss function
+    internal func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Selected image information
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            companyImageView.image = editedImage
+        } else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            companyImageView.image = originalImage
+        }
+        
+        // Setup cirular image style
+        setupCircularImageSytle()
+        
+        dismiss(animated: true, completion: nil)
     }
     
     // Cancel Button Action
@@ -204,6 +246,12 @@ class CreateCompanyViewController: UIViewController {
         company.setValue(nameTextField.text, forKey: "name")
         company.setValue(datePicker.date, forKey: "founded")
         
+        // Save image at 80% compression
+        if let companyImage = companyImageView.image {
+            let imageData = UIImageJPEGRepresentation(companyImage, 0.8)
+            company.setValue(imageData, forKey: "imageData")
+        }
+        
         // perform the save
         do {
             try context.save()
@@ -229,6 +277,12 @@ class CreateCompanyViewController: UIViewController {
         
         // Update founded date
         companyNameForRowSelected?.founded = datePicker.date
+        
+        // Show Image
+        if let companyImage = companyImageView.image {
+            let imageData = UIImageJPEGRepresentation(companyImage, 0.8)
+            companyNameForRowSelected?.imageData = imageData
+        }
         
         do {
             try context.save()

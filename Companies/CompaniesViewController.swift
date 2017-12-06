@@ -55,7 +55,9 @@ class CompaniesViewController: UITableViewController  {
         
         tableView.backgroundColor = Color.darkBlue.value
         tableView.separatorStyle = .none
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        
+        // Register custom UITableViewCell - CompanyCell
+        tableView.register(CompanyCell.self, forCellReuseIdentifier: cellID)
     }
     
     // MARK: Sections
@@ -77,32 +79,18 @@ class CompaniesViewController: UITableViewController  {
     // MARK: CellForRow
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! CompanyCell
         
-        cell.backgroundColor = Color.teal.value
-        cell.textLabel?.textColor = Color.white.value
-        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
+        // As cell is now a custom cell, you need to update the property of that custom cell
         let company = companies[indexPath.row]
-        
-        if let name = company.name, let founded = company.founded {
-            
-            // Date formatter
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMM YYYY"
-            
-            let foundedDateString = dateFormatter.string(from: founded)
-            
-            // Set English Locale
-            // let locale = Locale(identifier: "EN")
-            
-            let dateString = "\(name) - Founded: \(foundedDateString)"
-            cell.textLabel?.text = dateString
-        } else {
-            cell.textLabel?.text = company.name
-        }
+        cell.company = company
 
         return cell
+    }
+    
+    // Adjust hight of each row
+    internal override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
     // Add edit and delete actions to tableView rows. Action is handled by handlerFunction

@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Will you let this app grant access to your photo library so that you can select a photo?</string>
 	<key>CFBundleDisplayName</key>
 	<string>Companies</string>
 	<key>CFBundleExecutable</key>
