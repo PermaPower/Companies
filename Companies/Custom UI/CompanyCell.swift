@@ -42,14 +42,17 @@ class CompanyCell: UITableViewCell {
     }
     
     let companyImageView: UIImageView = {
+        
         // Default Image
         let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
+        
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
         imageView.layer.borderColor = Color.darkBlue.value.cgColor
         imageView.layer.borderWidth = 1
+        
         return imageView
     }()
     
@@ -71,8 +74,14 @@ class CompanyCell: UITableViewCell {
         addSubview(companyImageView)
         companyImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         companyImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        companyImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         companyImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            companyImageView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        } else {
+            // Fallback on earlier versions
+            companyImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        }
         
         // Add name and founded date label
         addSubview(nameFoundedDateLabel)
@@ -80,8 +89,6 @@ class CompanyCell: UITableViewCell {
         nameFoundedDateLabel.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         nameFoundedDateLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         nameFoundedDateLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
-        
         
     }
     required init?(coder aDecoder: NSCoder) {
