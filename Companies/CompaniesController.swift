@@ -30,7 +30,7 @@ class CompaniesController: UITableViewController  {
     private func setupTableView() {
         
         navigationItem.title = navTitle
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(handleAddCompany))
+        setupPlusButtonInNavBar(selector: #selector(handleAddCompany))
         
         tableView.backgroundColor = Color.darkBlue.value
         tableView.separatorStyle = .none

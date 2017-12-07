@@ -89,4 +89,20 @@ extension CompaniesController {
         present(navController, animated: true, completion: nil)
         
     }
+    
+    // Private function that will fire when a row has been selected
+    internal override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // Create Modal
+        let employeesController = EmployeesController()
+        
+        // Read row of data that was selected
+        let company = companies[indexPath.row]
+        
+        // Set variable with selected row company data
+        employeesController.company = company
+        
+        // Pop up modal
+        navigationController?.pushViewController(employeesController, animated: true)
+    }
 }

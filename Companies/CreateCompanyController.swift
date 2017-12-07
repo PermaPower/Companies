@@ -6,12 +6,11 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2132 @ x 8:10 seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1932 @ x  seconds
 
 import UIKit
 import CoreData
 
-private let cancelButtonTitle = "Cancel"
 private let saveButtonTitle = "Save"
 
 // MARK: Custom Delegation
@@ -124,7 +123,7 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
     private func setupUI() {
         
         // Setup navigation bar title and buttons
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: cancelButtonTitle, style: .plain, target: self, action: #selector(handleCancelButton))
+        setupCancelButton()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: saveButtonTitle, style: .plain, target: self, action: #selector(handleSaveButton))
         
         // Setup background color for view
@@ -212,11 +211,6 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         // Setup cirular image style
         setupCircularImageSytle()
         
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Cancel Button Action
-    @objc private func handleCancelButton() {
         dismiss(animated: true, completion: nil)
     }
     
