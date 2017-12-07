@@ -13,6 +13,7 @@ class CompanyCell: UITableViewCell {
     
     // Property
     var company: Company? {
+        
         didSet {
             nameFoundedDateLabel.text = company?.name
             

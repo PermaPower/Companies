@@ -25,4 +25,31 @@ struct CoreDataManager {
         
         return containter
     }()
+    
+    // Function to return companies array
+    func fetchCompanies() -> [Company] {
+        
+        // Attempt to read Core Data Fetch somehow...
+        // Initialization of our Core Data stack
+        
+        // Singleton
+        // let context = CoreDataManager.shared.persistentContainer.viewContext (Full reference not needed as part of current class)
+        let context = persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            let companies = try context.fetch(fetchRequest)
+            
+            // Return array
+            return companies
+            
+        } catch let fetchErr {
+            print("Failed to fetch companeis:", fetchErr)
+            
+            // Return empty array if error occured
+            return []
+        }
+        
+    }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2122 @ x seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=2132 @ x 8:10 seconds
 
 import UIKit
 import CoreData
@@ -15,17 +15,18 @@ private let cancelButtonTitle = "Cancel"
 private let saveButtonTitle = "Save"
 
 // MARK: Custom Delegation
-protocol CreateCompanyViewControllerCustomDelegate {
+protocol CreateCompanyControllerCustomDelegate {
     
     // Function will run when custom delegate is called
     func didAddCompany(company: Company)
     func didEditCompany(company: Company)
 }
 
-class CreateCompanyViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class CreateCompanyController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // Add companyNameForRowSelected property to class (used in modal)
     var companyNameForRowSelected: Company? {
+        
         didSet {
             nameTextField.text = companyNameForRowSelected?.name
             
@@ -44,6 +45,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
     
     // Setup circluar style for images
     private func setupCircularImageSytle() {
+        
         // Make image circular
         companyImageView.layer.cornerRadius = companyImageView.frame.width / 2
         companyImageView.clipsToBounds = true
@@ -53,7 +55,7 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
     }
     
     // Instantiate a link between controllers
-    var delegate: CreateCompanyViewControllerCustomDelegate?
+    var delegate: CreateCompanyControllerCustomDelegate?
     
     // Lightblue background color
     private let lightBlueBackgroundView: UIView = {
@@ -101,7 +103,6 @@ class CreateCompanyViewController: UIViewController, UINavigationControllerDeleg
         dp.datePickerMode = .date
         return dp
     }()
-    
     
     // Founded name Label
     private let foundedNameLabel: UILabel = {
