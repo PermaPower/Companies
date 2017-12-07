@@ -52,7 +52,7 @@ class CompanyCell: UITableViewCell {
         imageView.layer.cornerRadius = 20
         imageView.clipsToBounds = true
         imageView.layer.borderColor = Color.darkBlue.value.cgColor
-        imageView.layer.borderWidth = 1
+        imageView.layer.borderWidth = 0.5
         
         return imageView
     }()

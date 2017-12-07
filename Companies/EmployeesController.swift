@@ -7,16 +7,25 @@
 //
 
 import UIKit
+import CoreData
 
 class EmployeesController: UITableViewController {
     
     var company: Company?
+    
+    let cellID = "CellID"
+    
+    var employees = [Employee]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Set navigation title
         navigationItem.title = company?.name
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        
+        fetchEmployees()
     }
     
     override func viewDidLoad() {
@@ -29,6 +38,43 @@ class EmployeesController: UITableViewController {
         setupPlusButtonInNavBar(selector: #selector(handleAddButton))
  
     }
+    
+    // Function to fetch employees
+    private func fetchEmployees() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<Employee>(entityName: "Employee")
+        
+        do {
+            let employees = try context.fetch(request)
+            
+            self.employees = employees
+            //employess.forEach{print("Employee name:", $0.name ?? "")}
+            
+        } catch let err {
+            print ("Failed to fetch employees: " , err)
+        }
+
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return employees.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        
+        let employee = employees[indexPath.row]
+        
+        cell.textLabel?.text = employee.name
+        
+        cell.backgroundColor = Color.teal.value
+        cell.textLabel?.textColor = Color.white.value
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        
+        return cell
+    }
+    
 
     // Handle Add Button action
     @objc private func handleAddButton() {

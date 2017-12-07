@@ -6,7 +6,7 @@
 //  Copyright © 2017 Permaculture Power. All rights reserved.
 //
 
-// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1932 @ x  seconds
+// **** Now up to https://www.letsbuildthatapp.com/course_video?id=1922 @ x 10:00 seconds
 
 import UIKit
 import CoreData
@@ -49,21 +49,13 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         companyImageView.layer.cornerRadius = companyImageView.frame.width / 2
         companyImageView.clipsToBounds = true
         companyImageView.layer.borderColor = Color.darkBlue.value.cgColor
-        companyImageView.layer.borderWidth = 1
+        companyImageView.layer.borderWidth = 0.5
         
     }
     
     // Instantiate a link between controllers
     var delegate: CreateCompanyControllerCustomDelegate?
-    
-    // Lightblue background color
-    private let lightBlueBackgroundView: UIView = {
-        let lbg = UIView()
-        lbg.backgroundColor = Color.lightblue.value
-        lbg.translatesAutoresizingMaskIntoConstraints = false
-        return lbg
-    }()
-    
+       
     // Company Image
     private lazy var companyImageView: UIImageView = {
        let imageView = UIImageView(image: #imageLiteral(resourceName: "select_photo_empty"))
@@ -124,17 +116,13 @@ class CreateCompanyController: UIViewController, UINavigationControllerDelegate,
         
         // Setup navigation bar title and buttons
         setupCancelButton()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: saveButtonTitle, style: .plain, target: self, action: #selector(handleSaveButton))
+        setupSaveButton(selector: #selector(handleSaveButton))
         
         // Setup background color for view
         view.backgroundColor = Color.darkBlue.value
         
-        // Setup background lightblue background with Autolayout enabled (Currently set with a 350 height)
-        view.addSubview(lightBlueBackgroundView)
-        lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        lightBlueBackgroundView.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        // Setup background lightblue background with Autolayout enabled
+        setupLightBlueBackgroundView(height: 350)
         
         // Add companyImageView
         view.addSubview(companyImageView)
