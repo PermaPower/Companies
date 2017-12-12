@@ -55,6 +55,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		633F82101FD9001800A86FA3 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				633F82121FD9005600A86FA3 /* Companies */,
+				633F82111FD9002E00A86FA3 /* Employess */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		633F82111FD9002E00A86FA3 /* Employess */ = {
+			isa = PBXGroup;
+			children = (
+				633F820A1FD8E15100A86FA3 /* EmployeesController.swift */,
+				633F820E1FD8E84700A86FA3 /* CreateEmployeeController.swift */,
+			);
+			path = Employess;
+			sourceTree = "<group>";
+		};
+		633F82121FD9005600A86FA3 /* Companies */ = {
+			isa = PBXGroup;
+			children = (
+				63A9021C1F9F0404009AC6F9 /* CompaniesController.swift */,
+				6340A8F91FB2FA8F004504E3 /* CreateCompanyController.swift */,
+			);
+			path = Companies;
+			sourceTree = "<group>";
+		};
 		6340A8FD1FB3085B004504E3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -103,14 +130,11 @@
 		63A902191F9F0404009AC6F9 /* Companies */ = {
 			isa = PBXGroup;
 			children = (
+				633F82101FD9001800A86FA3 /* Screens */,
 				63A685421FD7692D00A68A8B /* Custom UI */,
 				638119B51FC5010D001313CD /* CoreData */,
 				6340A8FD1FB3085B004504E3 /* Extensions */,
 				63A9021A1F9F0404009AC6F9 /* AppDelegate.swift */,
-				633F820A1FD8E15100A86FA3 /* EmployeesController.swift */,
-				633F820E1FD8E84700A86FA3 /* CreateEmployeeController.swift */,
-				63A9021C1F9F0404009AC6F9 /* CompaniesController.swift */,
-				6340A8F91FB2FA8F004504E3 /* CreateCompanyController.swift */,
 				63A902211F9F0404009AC6F9 /* Assets.xcassets */,
 				63A902231F9F0404009AC6F9 /* LaunchScreen.storyboard */,
 				63A902261F9F0404009AC6F9 /* Info.plist */,

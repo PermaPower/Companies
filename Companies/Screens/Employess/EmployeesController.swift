@@ -9,8 +9,15 @@
 import UIKit
 import CoreData
 
-class EmployeesController: UITableViewController {
+class EmployeesController: UITableViewController, CreateEmployeeControllerDelegate {
     
+    // Applies custom delegate function
+    func didAddEmployee(employee: Employee) {
+        // Appends employee recieved to employees array
+        employees.append(employee)
+        tableView.reloadData()
+    }
+
     var company: Company?
     
     let cellID = "CellID"
@@ -24,8 +31,7 @@ class EmployeesController: UITableViewController {
         navigationItem.title = company?.name
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-        
-        fetchEmployees()
+
     }
     
     override func viewDidLoad() {
@@ -36,6 +42,9 @@ class EmployeesController: UITableViewController {
         
         // Add bar button
         setupPlusButtonInNavBar(selector: #selector(handleAddButton))
+        
+        // Fetch Employees
+        fetchEmployees()
  
     }
     
@@ -80,6 +89,7 @@ class EmployeesController: UITableViewController {
     @objc private func handleAddButton() {
         
         let createEmployeeController = CreateEmployeeController()
+        createEmployeeController.delegate = self
         let navController = UINavigationController(rootViewController: createEmployeeController)
         
         present(navController, animated: true, completion: nil)

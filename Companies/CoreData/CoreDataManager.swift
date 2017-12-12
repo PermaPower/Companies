@@ -53,12 +53,13 @@ struct CoreDataManager {
         
     }
     
-    func createEmployee(employeeName: String) -> Error? {
+    // Use optional Tuple to return values from function
+    func createEmployee(employeeName: String) -> (Employee?, Error?) {
         
         let context=persistentContainer.viewContext
         
         // Create an employee
-        let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context)
+        let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context) as! Employee
         
         employee.setValue(employeeName, forKey: "name")
         
@@ -66,13 +67,13 @@ struct CoreDataManager {
             try context.save()
             
             // Save OK
-            return nil
+            return (employee, nil)
             
         } catch let err {
             print ("Error trying to sve employee: \(err)")
             
             // Save failed
-            return err
+            return (nil, err)
         }
         
     }

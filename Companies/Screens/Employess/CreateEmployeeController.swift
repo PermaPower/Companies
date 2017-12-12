@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol CreateEmployeeControllerDelegate {
+    func didAddEmployee(employee: Employee)
+}
+
 class CreateEmployeeController: UIViewController {
+
+    // Delegate will call Delegate function
+    var delegate: CreateEmployeeControllerDelegate?
     
     // NameLabel
     private let nameLabel: UILabel = {
@@ -68,13 +75,18 @@ class CreateEmployeeController: UIViewController {
         
         guard let employeeName = nameTextField.text else { return }
         
-        let error = CoreDataManager.shared.createEmployee(employeeName: employeeName)
+        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName)
         
-        if let error = error {
+        if let error = tuple.1 {
             // This is where you present an error model of some kind
             print (error)
         } else {
-            dismiss(animated: true, completion: nil)
+            // Creation OK
+            dismiss(animated: true, completion: {
+            
+                self.delegate?.didAddEmployee(employee: tuple.0!)
+                
+            })
         }
         
        
