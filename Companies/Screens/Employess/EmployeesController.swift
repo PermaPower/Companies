@@ -50,19 +50,27 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
     
     // Function to fetch employees
     private func fetchEmployees() {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
         
-        let request = NSFetchRequest<Employee>(entityName: "Employee")
+        // Fetch all employess filtered by company name
+        // As .allObjects gives us 'Anytype' - NSSet > Array
+        guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
         
-        do {
-            let employees = try context.fetch(request)
-            
-            self.employees = employees
-            //employess.forEach{print("Employee name:", $0.name ?? "")}
-            
-        } catch let err {
-            print ("Failed to fetch employees: " , err)
-        }
+        self.employees = companyEmployees
+        
+        
+//        let context = CoreDataManager.shared.persistentContainer.viewContext
+//
+//        let request = NSFetchRequest<Employee>(entityName: "Employee")
+//
+//        do {
+//            let employees = try context.fetch(request)
+//
+//            self.employees = employees
+//            //employess.forEach{print("Employee name:", $0.name ?? "")}
+//
+//        } catch let err {
+//            print ("Failed to fetch employees: " , err)
+//        }
 
     }
     
@@ -94,7 +102,10 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
     @objc private func handleAddButton() {
         
         let createEmployeeController = CreateEmployeeController()
+        
         createEmployeeController.delegate = self
+        createEmployeeController.company = self.company
+        
         let navController = UINavigationController(rootViewController: createEmployeeController)
         
         present(navController, animated: true, completion: nil)

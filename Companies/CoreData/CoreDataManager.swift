@@ -54,7 +54,7 @@ struct CoreDataManager {
     }
     
     // Use optional Tuple to return values from function
-    func createEmployee(employeeName: String) -> (Employee?, Error?) {
+    func createEmployee(employeeName: String, company: Company) -> (Employee?, Error?) {
         
         let context=persistentContainer.viewContext
         
@@ -62,15 +62,23 @@ struct CoreDataManager {
         let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context) as! Employee
         
         employee.setValue(employeeName, forKey: "name")
+
+        // Update company details for employee (passed in to function)
+        employee.company = company
+        
+        // Lets check company is setup correctly
+//        let company = Company(context: context)
+//        company.employees (NSset)
+//        employee.company (Single Variable)
         
         // Add TaxID to EmployeeInformation
         
-        // Point to destination
-        let employeeInformation = NSEntityDescription.insertNewObject(forEntityName: "EmployeeInformation", into: context) as! EmployeeInformation
-        // Set the value
-        employeeInformation.taxID = "456"
-        // Map the two together
-        employee.employeeInformation = employeeInformation
+//        // Point to destination
+//        let employeeInformation = NSEntityDescription.insertNewObject(forEntityName: "EmployeeInformation", into: context) as! EmployeeInformation
+//        // Set the value
+//        employeeInformation.taxID = "456"
+//        // Map the two together
+//        employee.employeeInformation = employeeInformation
         
         do {
             try context.save()

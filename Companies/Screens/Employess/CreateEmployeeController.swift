@@ -13,6 +13,9 @@ protocol CreateEmployeeControllerDelegate {
 }
 
 class CreateEmployeeController: UIViewController {
+    
+    // Create variable to store company name
+    var company: Company?
 
     // Delegate will call Delegate function
     var delegate: CreateEmployeeControllerDelegate?
@@ -74,8 +77,9 @@ class CreateEmployeeController: UIViewController {
         // Create employee using the singlton function
         
         guard let employeeName = nameTextField.text else { return }
+        guard let company = self.company else { return }
         
-        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName)
+        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName, company: company)
         
         if let error = tuple.1 {
             // This is where you present an error model of some kind
