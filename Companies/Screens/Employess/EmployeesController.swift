@@ -77,6 +77,11 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         
         cell.textLabel?.text = employee.name
         
+        // If TaxID exists, then update textLabel
+        if let taxID = employee.employeeInformation?.taxID {
+            cell.textLabel?.text = "\(employee.name ?? "")    \(taxID)"
+        }
+        
         cell.backgroundColor = Color.teal.value
         cell.textLabel?.textColor = Color.white.value
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)

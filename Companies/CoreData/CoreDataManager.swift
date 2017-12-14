@@ -63,6 +63,15 @@ struct CoreDataManager {
         
         employee.setValue(employeeName, forKey: "name")
         
+        // Add TaxID to EmployeeInformation
+        
+        // Point to destination
+        let employeeInformation = NSEntityDescription.insertNewObject(forEntityName: "EmployeeInformation", into: context) as! EmployeeInformation
+        // Set the value
+        employeeInformation.taxID = "456"
+        // Map the two together
+        employee.employeeInformation = employeeInformation
+        
         do {
             try context.save()
             
