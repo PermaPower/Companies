@@ -115,14 +115,25 @@ class CreateEmployeeController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
 
-        let stringOfDate = dateFormatter.date(from: birthdayText)
+        // Check to see if date entered can be formatted, if not, then Alert user and return
+        guard let birthdayDate = dateFormatter.date(from: birthdayText)
+            else {
+                showError(title: "Bad date!", message: "Date entered is not valid.")
+                return
+        }
        
         // Create employee using the singlton function
         
         guard let employeeName = nameTextField.text else { return }
         guard let company = self.company else { return }
         
-        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName, birthday: stringOfDate!, company: company)
+        // Perform validation check step here
+        if birthdayText.isEmpty {
+            showError(title: "Empty birthday!", message: "Please enter in a valid birth date.")
+            return
+        }
+        
+        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName, birthday: birthdayDate, company: company)
         
         if let error = tuple.1 {
             // This is where you present an error model of some kind
@@ -136,6 +147,16 @@ class CreateEmployeeController: UIViewController {
             })
         }
         
+
        
     }
+
+
+    private func showError(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
 }
+
+
