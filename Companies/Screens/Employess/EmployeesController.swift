@@ -84,12 +84,15 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         let employee = employees[indexPath.row]
         
         cell.textLabel?.text = employee.name
-        
-        // If TaxID exists, then update textLabel
-        if let taxID = employee.employeeInformation?.taxID {
-            cell.textLabel?.text = "\(employee.name ?? "")    \(taxID)"
+
+        // If birthday exists, then update textLabel
+        if let birthday = employee.employeeInformation?.birthday {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMM, yyyy"
+            
+            cell.textLabel?.text = "\(employee.name ?? "")  -  \(dateFormatter.string(from: birthday))"
         }
-        
+
         cell.backgroundColor = Color.teal.value
         cell.textLabel?.textColor = Color.white.value
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
