@@ -22,6 +22,7 @@ class CompaniesController: UITableViewController  {
         
         // Call function and load into variable
         // TableView will reload automatically as it is part of the viewDidLoad function (special)
+        
         self.companies = CoreDataManager.shared.fetchCompanies()
         
         setupTableView()

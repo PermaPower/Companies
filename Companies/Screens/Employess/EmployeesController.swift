@@ -15,7 +15,6 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
     func didAddEmployee(employee: Employee) {
         // Appends employee recieved to employees array
         employees.append(employee)
-        tableView.reloadData()
     }
 
     var company: Company?
@@ -31,7 +30,13 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         navigationItem.title = company?.name
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-
+        
+        // Fetch Employees
+        fetchEmployees()
+        
+        // Refresh dataview
+        tableView.reloadData()
+        
     }
     
     override func viewDidLoad() {
@@ -55,33 +60,65 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         // As .allObjects gives us 'Anytype' - NSSet > Array
         guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
         
-        self.employees = companyEmployees
+        shortNameEmployees = companyEmployees.filter({ (employee) -> Bool in
+            if let count = employee.name?.count {
+                return count < 6
+            }
+            return false
+        })
         
+        longNameEmployees = companyEmployees.filter({ (employee) -> Bool in
+            if let count = employee.name?.count {
+                return count > 6
+            }
+            return false
+        })
         
-//        let context = CoreDataManager.shared.persistentContainer.viewContext
-//
-//        let request = NSFetchRequest<Employee>(entityName: "Employee")
-//
-//        do {
-//            let employees = try context.fetch(request)
-//
-//            self.employees = employees
-//            //employess.forEach{print("Employee name:", $0.name ?? "")}
-//
-//        } catch let err {
-//            print ("Failed to fetch employees: " , err)
-//        }
+        // Now load arrays into allEmployee array after filtering has been applied
+        allEmployess = [
+            shortNameEmployees,
+            longNameEmployees
+        ]
 
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // Using custom IndentedLabel
+        let label = IndentedLabel()
+        label.backgroundColor = Color.lightblue.value
+        label.textColor = Color.darkBlue.value
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        if section == 0 {
+            label.text = "Short names"
+        } else
+        {
+            label.text = "Long names"
+        }
+        return label
+    }
+    
+    var shortNameEmployees = [Employee]()
+    var longNameEmployees = [Employee]()
+    
+    // An array of arrays (sections)
+    var allEmployess = [[Employee]]()
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return employees.count
+        return allEmployess[section].count
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return allEmployess.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
-        let employee = employees[indexPath.row]
+        let employee = allEmployess[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = employee.name
 
@@ -112,6 +149,17 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         let navController = UINavigationController(rootViewController: createEmployeeController)
         
         present(navController, animated: true, completion: nil)
-        
+    
+    }
+    
+    // Create a UILabel sublass for custom text drawing (spacing for section header)
+    class IndentedLabel: UILabel {
+        override func drawText(in rect: CGRect) {
+            
+            let insets = UIEdgeInsetsMake(0, 16, 0, 0)
+            let customRect = UIEdgeInsetsInsetRect(rect, insets)
+            super.drawText(in: customRect)
+            
+        }
     }
 }

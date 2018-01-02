@@ -110,8 +110,6 @@ class CreateEmployeeController: UIViewController {
         // Turn birthdayTextField.text into a date object
         guard let birthdayText = birthdayTextField.text else { return }
         
-        print (birthdayText)
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
 
@@ -141,14 +139,12 @@ class CreateEmployeeController: UIViewController {
         } else {
             // Creation OK
             dismiss(animated: true, completion: {
-            
                 self.delegate?.didAddEmployee(employee: tuple.0!)
-                
+
             })
+        
         }
         
-
-       
     }
 
 
