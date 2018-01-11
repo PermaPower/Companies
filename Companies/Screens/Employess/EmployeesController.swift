@@ -148,7 +148,17 @@ extension EmployeesController: CreateEmployeeControllerDelegate {
 
     // Called with we dismiss employee creation
     func didAddEmployee(employee: Employee) {
-        fetchEmployees()
-        tableView.reloadData()
-        }
+    
+        guard let section = employeeTypes.index(of: employee.type!) else {return}
+    
+        // Looks at array count (entered as the next row for new entry)
+        let row = allEmployees[section].count
+        
+        let insertionIndexPath = IndexPath(row: row, section: section)
+        
+        allEmployees[section].append(employee)
+        
+        tableView.insertRows(at: [insertionIndexPath], with: .middle)
+        
+    }
 }
