@@ -54,7 +54,7 @@ struct CoreDataManager {
     }
     
     // Use optional Tuple to return values from function
-    func createEmployee(employeeName: String, birthday: Date, company: Company) -> (Employee?, Error?) {
+    func createEmployee(employeeName: String, employeeType: String, birthday: Date, company: Company) -> (Employee?, Error?) {
         
         let context=persistentContainer.viewContext
         
@@ -65,6 +65,9 @@ struct CoreDataManager {
 
         // Update company details for employee (passed into function)
         employee.company = company
+        
+        // Update employeeType
+        employee.type = employeeType
         
          //Add birthday to EmployeeInformation
          // Point to destination

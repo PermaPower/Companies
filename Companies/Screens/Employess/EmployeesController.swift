@@ -9,14 +9,8 @@
 import UIKit
 import CoreData
 
-class EmployeesController: UITableViewController, CreateEmployeeControllerDelegate {
+class EmployeesController: UITableViewController {
     
-    // Applies custom delegate function
-    func didAddEmployee(employee: Employee) {
-        // Appends employee recieved to employees array
-        employees.append(employee)
-    }
-
     var company: Company?
     
     let cellID = "CellID"
@@ -50,7 +44,7 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         
         // Fetch Employees
         fetchEmployees()
- 
+        
     }
     
     // Function to fetch employees
@@ -149,7 +143,7 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
         let navController = UINavigationController(rootViewController: createEmployeeController)
         
         present(navController, animated: true, completion: nil)
-    
+        
     }
     
     // Create a UILabel sublass for custom text drawing (spacing for section header)
@@ -162,4 +156,11 @@ class EmployeesController: UITableViewController, CreateEmployeeControllerDelega
             
         }
     }
+}
+
+extension EmployeesController: CreateEmployeeControllerDelegate {
+    func didAddEmployee(employee: Employee) {
+            // Appends employee recieved to employees array
+            employees.append(employee)
+        }
 }

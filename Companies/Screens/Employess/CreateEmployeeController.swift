@@ -13,7 +13,7 @@ protocol CreateEmployeeControllerDelegate {
 }
 
 class CreateEmployeeController: UIViewController {
-    
+
     // Create variable to store company name
     var company: Company?
 
@@ -56,6 +56,16 @@ class CreateEmployeeController: UIViewController {
         return textField
     }()
     
+    // EmployeeType - Segmented controller
+    private let employeeTypeSegmentedControl: UISegmentedControl = {
+        let types = ["Executive","Senior Management","Staff"]
+        let sc = UISegmentedControl(items: types)
+        sc.selectedSegmentIndex = 0
+        sc.tintColor = Color.darkBlue.value
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        return sc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,7 +81,7 @@ class CreateEmployeeController: UIViewController {
     
     private func setupUI() {
         
-        setupLightBlueBackgroundView(height: 100)
+        setupLightBlueBackgroundView(height: 150)
         
         // Add nameLabel
         view.addSubview(nameLabel)
@@ -100,13 +110,18 @@ class CreateEmployeeController: UIViewController {
         birthdayTextField.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         birthdayTextField.bottomAnchor.constraint(equalTo: birthdayLabel.bottomAnchor).isActive = true
         birthdayTextField.topAnchor.constraint(equalTo: birthdayLabel.topAnchor).isActive = true
-
+        
+        // Add segmented control
+        view.addSubview(employeeTypeSegmentedControl)
+        employeeTypeSegmentedControl.topAnchor.constraint(equalTo: birthdayLabel.bottomAnchor, constant: 0).isActive = true
+        employeeTypeSegmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        employeeTypeSegmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16).isActive = true
+        employeeTypeSegmentedControl.heightAnchor.constraint(equalToConstant: 34).isActive = true
         
     }
     
     @objc private func handleSaveButton() {
-        print ("Saving employee")
-        
+
         // Turn birthdayTextField.text into a date object
         guard let birthdayText = birthdayTextField.text else { return }
         
@@ -119,6 +134,8 @@ class CreateEmployeeController: UIViewController {
                 showError(title: "Bad date!", message: "Date entered is not valid.")
                 return
         }
+        
+        guard let employeeType = employeeTypeSegmentedControl.titleForSegment(at: employeeTypeSegmentedControl.selectedSegmentIndex) else {return}
        
         // Create employee using the singlton function
         
@@ -131,7 +148,7 @@ class CreateEmployeeController: UIViewController {
             return
         }
         
-        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName, birthday: birthdayDate, company: company)
+        let tuple = CoreDataManager.shared.createEmployee(employeeName: employeeName, employeeType: employeeType, birthday: birthdayDate, company: company)
         
         if let error = tuple.1 {
             // This is where you present an error model of some kind
@@ -139,14 +156,12 @@ class CreateEmployeeController: UIViewController {
         } else {
             // Creation OK
             dismiss(animated: true, completion: {
-                self.delegate?.didAddEmployee(employee: tuple.0!)
-
+                self.delegate?.didAddEmployee(employee: tuple.0!)    
             })
         
         }
         
     }
-
 
     private func showError(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
