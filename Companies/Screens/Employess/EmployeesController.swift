@@ -15,8 +15,6 @@ class EmployeesController: UITableViewController {
     
     let cellID = "CellID"
     
-    var employees = [Employee]()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -54,26 +52,13 @@ class EmployeesController: UITableViewController {
         // As .allObjects gives us 'Anytype' - NSSet > Array
         guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
         
-        shortNameEmployees = companyEmployees.filter({ (employee) -> Bool in
-            if let count = employee.name?.count {
-                return count < 6
-            }
-            return false
-        })
+        let executives = companyEmployees.filter { $0.type == EmployeeType.Executive.rawValue }
         
-        longNameEmployees = companyEmployees.filter({ (employee) -> Bool in
-            if let count = employee.name?.count {
-                return count > 6
-            }
-            return false
-        })
+        let seniorManagment = companyEmployees.filter { $0.type == EmployeeType.SeniorManagement.rawValue }
         
-        // Now load arrays into allEmployee array after filtering has been applied
-        allEmployess = [
-            shortNameEmployees,
-            longNameEmployees
-        ]
-
+        let staff = companyEmployees.filter { $0.type == EmployeeType.Staff.rawValue }
+        
+        allEmployees = [executives, seniorManagment, staff]
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -83,36 +68,36 @@ class EmployeesController: UITableViewController {
         label.textColor = Color.darkBlue.value
         label.font = UIFont.boldSystemFont(ofSize: 16)
         if section == 0 {
-            label.text = "Short names"
+            label.text = EmployeeType.Executive.rawValue
+        } else if section == 1
+        {
+            label.text = EmployeeType.SeniorManagement.rawValue
         } else
         {
-            label.text = "Long names"
+            label.text = EmployeeType.Staff.rawValue
         }
         return label
     }
     
-    var shortNameEmployees = [Employee]()
-    var longNameEmployees = [Employee]()
-    
     // An array of arrays (sections)
-    var allEmployess = [[Employee]]()
+    var allEmployees = [[Employee]]()
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allEmployess[section].count
+        return allEmployees[section].count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return allEmployess.count
+        return allEmployees.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
-        let employee = allEmployess[indexPath.section][indexPath.row]
+        let employee = allEmployees[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = employee.name
 
@@ -159,8 +144,10 @@ class EmployeesController: UITableViewController {
 }
 
 extension EmployeesController: CreateEmployeeControllerDelegate {
+
+    // Called with we dismiss employee creation
     func didAddEmployee(employee: Employee) {
-            // Appends employee recieved to employees array
-            employees.append(employee)
+        fetchEmployees()
+        tableView.reloadData()
         }
 }
