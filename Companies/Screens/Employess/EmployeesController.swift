@@ -45,6 +45,13 @@ class EmployeesController: UITableViewController {
         
     }
     
+    let employeeTypes = [
+        EmployeeType.Executive.rawValue,
+        EmployeeType.SeniorManagement.rawValue,
+        EmployeeType.Staff.rawValue,
+        EmployeeType.Intern.rawValue
+    ]
+    
     // Function to fetch employees
     private func fetchEmployees() {
         
@@ -52,13 +59,15 @@ class EmployeesController: UITableViewController {
         // As .allObjects gives us 'Anytype' - NSSet > Array
         guard let companyEmployees = company?.employees?.allObjects as? [Employee] else { return }
         
-        let executives = companyEmployees.filter { $0.type == EmployeeType.Executive.rawValue }
+        // Reset array first
+        allEmployees = []
         
-        let seniorManagment = companyEmployees.filter { $0.type == EmployeeType.SeniorManagement.rawValue }
-        
-        let staff = companyEmployees.filter { $0.type == EmployeeType.Staff.rawValue }
-        
-        allEmployees = [executives, seniorManagment, staff]
+        employeeTypes.forEach { (employeeType) in
+            
+            allEmployees.append(
+                companyEmployees.filter { $0.type == employeeType }
+            )
+        }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -67,15 +76,7 @@ class EmployeesController: UITableViewController {
         label.backgroundColor = Color.lightblue.value
         label.textColor = Color.darkBlue.value
         label.font = UIFont.boldSystemFont(ofSize: 16)
-        if section == 0 {
-            label.text = EmployeeType.Executive.rawValue
-        } else if section == 1
-        {
-            label.text = EmployeeType.SeniorManagement.rawValue
-        } else
-        {
-            label.text = EmployeeType.Staff.rawValue
-        }
+        label.text = employeeTypes[section]
         return label
     }
     
